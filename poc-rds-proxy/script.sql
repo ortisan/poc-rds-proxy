@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS users (
+   id BIGSERIAL NOT NULL,
+   "firstName" VARCHAR(200) NOT NULL,
+   "lastName" VARCHAR(200) NULL,
+   "email" VARCHAR(200) NULL,
+   "createdAt" TIMESTAMPTZ NULL,
+   "updatedAt" TIMESTAMPTZ NULL,
+    PRIMARY KEY (id)
+);

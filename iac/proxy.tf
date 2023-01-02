@@ -5,13 +5,22 @@ resource "aws_db_proxy" "rds_proxy" {
   idle_client_timeout    = 1800
   require_tls            = true
   role_arn               = aws_iam_role.rds_proxy.arn
-  vpc_security_group_ids = ["sg-01a74b78d530cd862"]
-  vpc_subnet_ids         = ["subnet-01459f2806e7d9f24", "subnet-080509807e667e94e", "subnet-06c8a77208840d3c6"]
+  vpc_security_group_ids = var.rds_allowed_security_groups
+  vpc_subnet_ids         = var.rds_subnet_ids
 
   auth {
     auth_scheme = "SECRETS"
     description = "example"
     iam_auth    = "DISABLED"
     secret_arn  = aws_secretsmanager_secret.rds_proxy.arn
+  }
+}
+
+resource "aws_db_proxy_default_target_group" "rds_proxy" {
+  db_proxy_name = aws_db_proxy.rds_proxy.name
+  connection_pool_config {
+    connection_borrow_timeout    = 120
+    max_connections_percent      = 100
+    max_idle_connections_percent = 50
   }
 }

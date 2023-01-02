@@ -1,5 +1,5 @@
 resource "aws_secretsmanager_secret" "rds_proxy" {
-  name = "rds-proxy"
+  name = "rds-proxy-2"
 }
 
 resource "aws_secretsmanager_secret_version" "rds_proxy" {
